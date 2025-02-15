@@ -1,0 +1,14 @@
+{
+  "name": "file-converter",
+  "version": "1.0.0",
+  "description": "Aplicación para convertir archivos de Word, PNG y JPG a PDF",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "docx-pdf": "0.0.1",
+    "html2pdf.js": "^0.10.2",
+    "image-to-pdf": "^1.0.0"
+  }
+}

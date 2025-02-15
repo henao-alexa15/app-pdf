@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Archivos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Convertidor de Archivos</h1>
+    <form id="convert-form">
+        <input type="file" id="file-input" name="file" accept=".docx,.png,.jpg,.jpeg">
+        <select id="format-select" name="format">
+            <option value="pdf">PDF</option>
+        </select>
+        <button type="submit">Convertir</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('convert-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('file-input');
+            const formatSelect = document.getElementById('format-select');
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+            formData.append('format', formatSelect.value);
+            fetch('/convert', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'converted.pdf';
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>
